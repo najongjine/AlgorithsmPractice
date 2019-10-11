@@ -1,4 +1,4 @@
-package com.biz.bestalbum;
+package com.biz.bestalbum.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,15 +6,20 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class BestAlbumService {
-	class Solution {
-	    public int[] solution(String[] genres, int[] plays) {
-	        int[] answer = {};
+
+public class SolutionService {
+		public class AlbumVO{
+        	public String genre;
+        	public int play;
+        }
+		
+	    public SolutionService() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
+
+		public List<AlbumVO> solution(String[] genres, int[] plays) {
 	        
-	        class AlbumVO{
-	        	String genre;
-	        	int play;
-	        }
 	        List<AlbumVO> albumVOList=new ArrayList<AlbumVO>();
 	        List<AlbumVO> sortedAlbumVOList=new ArrayList<AlbumVO>();
 	        for(int i=0;i<genres.length;i++) {
@@ -31,24 +36,19 @@ public class BestAlbumService {
 					return o2.play-o1.play;
 				}
 			});
-	        for(int i=0;i<albumVOList.size();i++) {
-	        	String genre=albumVOList.get(i).genre;
-	        	sortedAlbumVOList.add(albumVOList.get(i));
-	        	albumVOList.remove(i);
+	        for(;!albumVOList.isEmpty();) {
+	        	String genre=albumVOList.get(0).genre;
+	        	sortedAlbumVOList.add(albumVOList.get(0));
+	        	albumVOList.remove(0);
 	        	for(int j=0;j<albumVOList.size();j++) {
-	        		if(i==j) continue;
-	        		if(albumVOList.get(i).genre.equalsIgnoreCase(albumVOList.get(j).genre)) {
-	        			if(albumVOList.get(i).play<albumVOList.get(j).play) {
-	        				AlbumVO _vo=albumVOList.get(i);
-	        				albumVOList.re
-	        			}
+	        		if(albumVOList.get(j).genre.equalsIgnoreCase(genre)) {
+	        			sortedAlbumVOList.add(albumVOList.get(j));
+	        			albumVOList.remove(j);
 	        		}
 	        	}
-	        	
-	        }
+	        }//end for
 	        
-	        
-	        return answer;
+	        return sortedAlbumVOList;
 	    }
-	}
 }
+
